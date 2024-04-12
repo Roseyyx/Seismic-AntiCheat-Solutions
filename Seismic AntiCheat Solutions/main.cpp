@@ -1,14 +1,12 @@
-#include "Utils/Logger/Logging.h"
+#include <windows.h>
 
 int main() {
-	Logging Console;
 
 	while (!GetAsyncKeyState(VK_END))
 	{
-		
+
 	}
 
-	if (!Console.Detach())
 
 	return 0;
 }
