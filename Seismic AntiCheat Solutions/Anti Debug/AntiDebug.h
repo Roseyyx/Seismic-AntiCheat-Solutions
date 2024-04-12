@@ -13,6 +13,11 @@ protected:
 		VmHandler,
 		GetString,
 		PebHeader,
+		RemoteDebugger,
+		WindowName,
+		GlobalFlag,
+		NtQuery,
+		VmBox
 	};
 
 private:

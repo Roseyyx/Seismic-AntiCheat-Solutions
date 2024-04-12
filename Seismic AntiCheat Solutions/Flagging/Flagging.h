@@ -10,14 +10,14 @@ protected:
 		LowSeverity,
 		NoSeverity
 	};
-private:
+public:
 	Flagging()
 	{
 		this->Flags = 0;
 		this->Severity = NoSeverity;
 	}
 
-	Flagging(int Flags, DetectionSeverity Severity)
+	Flagging(const int Flags, const DetectionSeverity Severity)
 	{
 		this->Flags = Flags;
 		this->Severity = Severity;
