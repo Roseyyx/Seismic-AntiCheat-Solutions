@@ -77,6 +77,42 @@ public:
 	{
 		GetInstance().Log("[Critical]\t", CriticalPriority, Message, Arguments...);
 	}
+
+	template<typename... Args>
+	static void Trace(int Line, const char* SourceFile, const char* Message, Args... Arguments)
+	{
+		GetInstance().Log(Line, SourceFile, "[Trace]\t", TracePriority, Message, Arguments...);
+	}
+
+	template<typename... Args>
+	static void Debug(int Line, const char* SourceFile, const char* Message, Args... Arguments)
+	{
+		GetInstance().Log(Line, SourceFile, "[Debug]\t", DebugPriority, Message, Arguments...);
+	}
+
+	template<typename... Args>
+	static void Info(int Line, const char* SourceFile, const char* Message, Args... Arguments)
+	{
+		GetInstance().Log(Line, SourceFile, "[Info]\t", InfoPriority, Message, Arguments...);
+	}
+
+	template<typename... Args>
+	static void Warn(int Line, const char* SourceFile, const char* Message, Args... Arguments)
+	{
+		GetInstance().Log(Line, SourceFile, "[Warn]\t", WarnPriority, Message, Arguments...);
+	}
+
+	template<typename... Args>
+	static void Error(int Line, const char* SourceFile, const char* Message, Args... Arguments)
+	{
+		GetInstance().Log(Line, SourceFile, "[Error]\t", ErrorPriority, Message, Arguments...);
+	}
+
+	template<typename... Args>
+	static void Critical(int Line, const char* SourceFile, const char* Message, Args... Arguments)
+	{
+		GetInstance().Log(Line, SourceFile, "[Critical]\t", CriticalPriority, Message, Arguments...);
+	}
 private:
 	Logger() {}
 
@@ -121,6 +157,35 @@ private:
 		}
 	}
 
+	template<typename... Args>
+	void Log(int LineNumber, const char* SourceFile, const char* MessagePriorityString, LogPriority MessagePriority, const char* Message, Args... Arguments)
+	{
+		if (Priority_ <= MessagePriority)
+		{
+			std::time_t CurrentTime = std::time(0);
+			std::tm* TimeStamp = std::localtime(&CurrentTime);
+			char Buffer[80];
+			strftime(Buffer, 80, "%c", TimeStamp);
+
+			std::scoped_lock Lock(LogMutex_);
+
+			printf("%s\t", Buffer);
+			printf(MessagePriorityString);
+			printf(Message, Arguments...);
+			printf(" on line %d in %s", LineNumber, SourceFile);
+			printf("\n");
+
+			if (File_)
+			{
+				fprintf(File_, "%s\t", Buffer);
+				fprintf(File_, MessagePriorityString);
+				fprintf(File_, Message, Arguments...);
+				fprintf(File_, " on line %d in %s", LineNumber, SourceFile);
+				fprintf(File_, "\n");
+			}
+		}
+	}
+
 	void SetFileOutput()
 	{
 		if (File_ != 0)
@@ -136,7 +201,15 @@ private:
 
 	void FreeFile()
 	{
+		if (File_ == 0) return;
 		fclose(File_);
 		File_ = 0;
 	}
 };
+
+#define LOG_TRACE(Message, ...) (Logger::Trace(__LINE__, __FILE__, Message, __VA_ARGS__))
+#define LOG_DEBUG(Message, ...) (Logger::Debug(__LINE__, __FILE__, Message, __VA_ARGS__))
+#define LOG_INFO(Message, ...) (Logger::Info(__LINE__, __FILE__, Message, __VA_ARGS__))
+#define LOG_WARN(Message, ...) (Logger::Warn(__LINE__, __FILE__, Message, __VA_ARGS__))
+#define LOG_ERROR(Message, ...) (Logger::Error(__LINE__, __FILE__, Message, __VA_ARGS__))
+#define LOG_CRITICAL(Message, ...) (Logger::Critical(__LINE__, __FILE__, Message, __VA_ARGS__))
