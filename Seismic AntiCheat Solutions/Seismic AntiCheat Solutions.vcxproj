@@ -135,7 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Utils\Logger\Logging.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils\Xor.h" />
   </ItemGroup>
