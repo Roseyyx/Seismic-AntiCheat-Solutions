@@ -129,15 +129,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Anti Debug\AntiDebug.cpp" />
-    <ClCompile Include="Flagging\Flagging.cpp" />
     <ClCompile Include="Utils\Logger\Logging.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils\Xor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Anti Debug\AntiDebug.h" />
-    <ClInclude Include="Flagging\Flagging.h" />
     <ClInclude Include="Utils\Logger\Logging.h" />
     <ClInclude Include="Utils\SingleTon.h" />
   </ItemGroup>
