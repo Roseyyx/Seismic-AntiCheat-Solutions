@@ -135,10 +135,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Detections\Flagging\Flags.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Detections\User\User.cpp" />
     <ClCompile Include="Utils\Xor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Detections\Flagging\Flags.h" />
+    <ClInclude Include="Detections\User\User.h" />
     <ClInclude Include="Utils\Logger\Logging.h" />
     <ClInclude Include="Utils\SingleTon.h" />
   </ItemGroup>

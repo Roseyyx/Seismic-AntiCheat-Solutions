@@ -1,8 +1,11 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <mutex>
 #include <stdio.h>
 #include <ctime>
+#include "../Xor.h"
 
 enum LogPriority
 {
@@ -31,7 +34,7 @@ public:
 	static void EnableFileOutput()
 	{
 		Logger& LoggerInstance = GetInstance();
-		LoggerInstance.FilePath_ = "log.txt";
+		LoggerInstance.FilePath_ = xorstr_("log.txt");
 		LoggerInstance.SetFileOutput();
 	}
 
@@ -45,73 +48,73 @@ public:
 	template<typename... Args>
 	static void Trace(const char* Message, Args... Arguments)
 	{
-		GetInstance().Log("[Trace]\t", TracePriority, Message, Arguments...);
+		GetInstance().Log(xorstr_("[Trace]\t"), TracePriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Debug(const char* Message, Args... Arguments)
 	{
-		GetInstance().Log("[Debug]\t", DebugPriority, Message, Arguments...);
+		GetInstance().Log(xorstr_("[Debug]\t"), DebugPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Info(const char* Message, Args... Arguments)
 	{
-		GetInstance().Log("[Info]\t", InfoPriority, Message, Arguments...);
+		GetInstance().Log(xorstr_("[Info]\t"), InfoPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Warn(const char* Message, Args... Arguments)
 	{
-		GetInstance().Log("[Warn]\t", WarnPriority, Message, Arguments...);
+		GetInstance().Log(xorstr_("[Warn]\t"), WarnPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Error(const char* Message, Args... Arguments)
 	{
-		GetInstance().Log("[Error]\t", ErrorPriority, Message, Arguments...);
+		GetInstance().Log(xorstr_("[Error]\t"), ErrorPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Critical(const char* Message, Args... Arguments)
 	{
-		GetInstance().Log("[Critical]\t", CriticalPriority, Message, Arguments...);
+		GetInstance().Log(xorstr_("[Critical]\t"), CriticalPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Trace(int Line, const char* SourceFile, const char* Message, Args... Arguments)
 	{
-		GetInstance().Log(Line, SourceFile, "[Trace]\t", TracePriority, Message, Arguments...);
+		GetInstance().Log(Line, SourceFile, xorstr_("[Trace]\t"), TracePriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Debug(int Line, const char* SourceFile, const char* Message, Args... Arguments)
 	{
-		GetInstance().Log(Line, SourceFile, "[Debug]\t", DebugPriority, Message, Arguments...);
+		GetInstance().Log(Line, SourceFile, xorstr_("[Debug]\t"), DebugPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Info(int Line, const char* SourceFile, const char* Message, Args... Arguments)
 	{
-		GetInstance().Log(Line, SourceFile, "[Info]\t", InfoPriority, Message, Arguments...);
+		GetInstance().Log(Line, SourceFile, xorstr_("[Info]\t"), InfoPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Warn(int Line, const char* SourceFile, const char* Message, Args... Arguments)
 	{
-		GetInstance().Log(Line, SourceFile, "[Warn]\t", WarnPriority, Message, Arguments...);
+		GetInstance().Log(Line, SourceFile, xorstr_("[Warn]\t"), WarnPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Error(int Line, const char* SourceFile, const char* Message, Args... Arguments)
 	{
-		GetInstance().Log(Line, SourceFile, "[Error]\t", ErrorPriority, Message, Arguments...);
+		GetInstance().Log(Line, SourceFile, xorstr_("[Error]\t"), ErrorPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Critical(int Line, const char* SourceFile, const char* Message, Args... Arguments)
 	{
-		GetInstance().Log(Line, SourceFile, "[Critical]\t", CriticalPriority, Message, Arguments...);
+		GetInstance().Log(Line, SourceFile, xorstr_("[Critical]\t"), CriticalPriority, Message, Arguments...);
 	}
 private:
 	Logger() {}
@@ -172,7 +175,7 @@ private:
 			printf("%s\t", Buffer);
 			printf(MessagePriorityString);
 			printf(Message, Arguments...);
-			printf(" on line %d in %s", LineNumber, SourceFile);
+			printf(xorstr_(" on line %d in %s"), LineNumber, SourceFile);
 			printf("\n");
 
 			if (File_)
@@ -180,7 +183,7 @@ private:
 				fprintf(File_, "%s\t", Buffer);
 				fprintf(File_, MessagePriorityString);
 				fprintf(File_, Message, Arguments...);
-				fprintf(File_, " on line %d in %s", LineNumber, SourceFile);
+				fprintf(File_, xorstr_(" on line %d in %s"), LineNumber, SourceFile);
 				fprintf(File_, "\n");
 			}
 		}

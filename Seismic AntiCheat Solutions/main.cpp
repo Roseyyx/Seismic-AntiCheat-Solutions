@@ -1,9 +1,8 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "Utils/Logger/Logging.h"
 int main() {
-	const char* Name = "User";
-	LOG_INFO("Hello", Name);
+	Logger::EnableFileOutput();
+
+	Logger::Info("Setting Seismic Anti Cheat up...", nullptr);
 
 	return 0;
 }

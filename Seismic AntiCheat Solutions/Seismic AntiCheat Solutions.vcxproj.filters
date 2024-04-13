@@ -21,12 +21,24 @@
     <ClCompile Include="Utils\Xor.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Detections\Flagging\Flags.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Detections\User\User.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\SingleTon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Logger\Logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Detections\Flagging\Flags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Detections\User\User.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
