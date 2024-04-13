@@ -17,72 +17,85 @@ enum LogPriority
 class Logger
 {
 private:
-	static LogPriority Priority_;
-	static std::mutex LogMutex_;
-	static const char* FilePath_;
-	static FILE* File_;
+	LogPriority Priority_ = InfoPriority;
+	std::mutex LogMutex_;
+	const char* FilePath_ = 0;
+	FILE* File_ = 0;
 
 public:
 	static void SetPriority(LogPriority NewPriority)
 	{
-		Priority_ = NewPriority;
+		GetInstance().Priority_ = NewPriority;
 	}
 
 	static void EnableFileOutput()
 	{
-		FilePath_ = "log.txt";
-		SetFileOutput();
+		Logger& LoggerInstance = GetInstance();
+		LoggerInstance.FilePath_ = "log.txt";
+		LoggerInstance.SetFileOutput();
 	}
 
 	static void EnableFileOutput(const char* NewFilePath)
 	{
-		FilePath_ = NewFilePath;
-		SetFileOutput();
-	}
-
-	static void CloseFileOutput()
-	{
-		FreeFile();
+		Logger& LoggerInstance = GetInstance();
+		LoggerInstance.FilePath_ = NewFilePath;
+		LoggerInstance.SetFileOutput();
 	}
 
 	template<typename... Args>
 	static void Trace(const char* Message, Args... Arguments)
 	{
-		Log("[Trace]\t", TracePriority, Message, Arguments...);
+		GetInstance().Log("[Trace]\t", TracePriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Debug(const char* Message, Args... Arguments)
 	{
-		Log("[Debug]\t", DebugPriority, Message, Arguments...);
+		GetInstance().Log("[Debug]\t", DebugPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Info(const char* Message, Args... Arguments)
 	{
-		Log("[Info]\t", InfoPriority, Message, Arguments...);
+		GetInstance().Log("[Info]\t", InfoPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Warn(const char* Message, Args... Arguments)
 	{
-		Log("[Warn]\t", WarnPriority, Message, Arguments...);
+		GetInstance().Log("[Warn]\t", WarnPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Error(const char* Message, Args... Arguments)
 	{
-		Log("[Error]\t", ErrorPriority, Message, Arguments...);
+		GetInstance().Log("[Error]\t", ErrorPriority, Message, Arguments...);
 	}
 
 	template<typename... Args>
 	static void Critical(const char* Message, Args... Arguments)
 	{
-		Log("[Critical]\t", CriticalPriority, Message, Arguments...);
+		GetInstance().Log("[Critical]\t", CriticalPriority, Message, Arguments...);
 	}
 private:
+	Logger() {}
+
+	Logger(const Logger&) = delete;
+	Logger& operator= (const Logger&) = delete;
+
+	~Logger()
+	{
+		FreeFile();
+	}
+
+	static Logger& GetInstance()
+	{
+		static Logger PLogger;
+		return PLogger;
+	}
+
 	template<typename... Args>
-	static void Log(const char* MessagePriorityString, LogPriority MessagePriority, const char* Message, Args... Arguments)
+	void Log(const char* MessagePriorityString, LogPriority MessagePriority, const char* Message, Args... Arguments)
 	{
 		if (Priority_ <= MessagePriority)
 		{
@@ -108,7 +121,7 @@ private:
 		}
 	}
 
-	static void SetFileOutput()
+	void SetFileOutput()
 	{
 		if (File_ != 0)
 		{
@@ -121,14 +134,9 @@ private:
 			printf("Failed to open file at %s", FilePath_);
 	}
 
-	static void FreeFile()
+	void FreeFile()
 	{
 		fclose(File_);
 		File_ = 0;
 	}
 };
-
-LogPriority Logger::Priority_ = InfoPriority;
-std::mutex Logger::LogMutex_;
-const char* Logger::FilePath_ = 0;
-FILE* Logger::File_ = 0;

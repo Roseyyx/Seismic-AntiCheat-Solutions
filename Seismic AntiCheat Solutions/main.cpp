@@ -15,7 +15,6 @@ int main() {
 	for (int i = 0; i < 10; i++) Threads[i] = std::thread(LogTest, i);
 	for (int i = 0; i < 10; i++) Threads[i].join();
 
-	Logger::CloseFileOutput();
 
 	return 0;
 }
