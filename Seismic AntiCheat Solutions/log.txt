@@ -1,0 +1,64 @@
+Sun Apr 14 13:09:48 2024	[Info]	Setting Seismic Anti Cheat up...
+Sun Apr 14 13:09:48 2024	[Info]	Type 00 - [Bios Device Type]
+Sun Apr 14 13:09:48 2024	[Info]			 BIOS Vendor:		American Megatrends International, LLC.
+Sun Apr 14 13:09:48 2024	[Info]			 BIOS Version:		P2.50
+Sun Apr 14 13:09:48 2024	[Info]			 Release Date:		10/19/2022
+Sun Apr 14 13:09:48 2024	[Info]	Type 02 - [Baseboard Device Type]
+Sun Apr 14 13:09:48 2024	[Info]			 Manufacturer:		ASRock
+Sun Apr 14 13:09:48 2024	[Info]			 Product Number:	B550M Steel Legend
+Sun Apr 14 13:09:48 2024	[Info]			 Version:		                      
+Sun Apr 14 13:09:48 2024	[Info]			 Serial Number:		M80-G3024201039
+Sun Apr 14 13:10:25 2024	[Info]			 UUID:			03060905-0A00-4100-5352-6F636B004235
+Sun Apr 14 13:10:25 2024	[Info]	Type 17 - [Memory Device Type]
+Sun Apr 14 13:10:25 2024	[Info]			 Memory Type:		FBD2
+Sun Apr 14 13:10:25 2024	[Info]			 Size of Ram:		Not specified
+Sun Apr 14 13:10:25 2024	[Info]			 Manufacturer:		Unknown
+Sun Apr 14 13:10:25 2024	[Info]			 Serial Number:		00000000
+Sun Apr 14 13:10:25 2024	[Info]	Type 17 - [Memory Device Type]
+Sun Apr 14 13:10:25 2024	[Info]			 Memory Type:		FBD2
+Sun Apr 14 13:10:25 2024	[Info]			 Size of Ram:		Not specified
+Sun Apr 14 13:10:25 2024	[Info]			 Manufacturer:		Unknown
+Sun Apr 14 13:10:25 2024	[Info]			 Serial Number:		00000000
+Sun Apr 14 13:17:49 2024	[Info]	Setting Seismic Anti Cheat up...
+Sun Apr 14 13:17:49 2024	[Info]	Type 00 - [Bios Device Type]
+Sun Apr 14 13:17:49 2024	[Info]			 BIOS Vendor:		American Megatrends International, LLC.
+Sun Apr 14 13:17:49 2024	[Info]			 BIOS Version:		P2.50
+Sun Apr 14 13:17:49 2024	[Info]			 Release Date:		10/19/2022
+Sun Apr 14 13:17:49 2024	[Info]	Type 02 - [Baseboard Device Type]
+Sun Apr 14 13:17:49 2024	[Info]			 Manufacturer:		ASRock
+Sun Apr 14 13:17:49 2024	[Info]			 Product Number:	B550M Steel Legend
+Sun Apr 14 13:17:49 2024	[Info]			 Version:		                      
+Sun Apr 14 13:17:49 2024	[Info]			 Serial Number:		M80-G3024201039
+Sun Apr 14 13:17:49 2024	[Info]			 UUID:			03060905-0A00-4100-5352-6F636B004235
+Sun Apr 14 13:17:49 2024	[Info]	Type 17 - [Memory Device Type]
+Sun Apr 14 13:17:49 2024	[Info]			 Memory Type:		FBD2
+Sun Apr 14 13:17:49 2024	[Info]			 Size of Ram:		Not specified
+Sun Apr 14 13:17:49 2024	[Info]			 Manufacturer:		Unknown
+Sun Apr 14 13:17:49 2024	[Info]			 Serial Number:		00000000
+Sun Apr 14 13:17:49 2024	[Info]	Type 17 - [Memory Device Type]
+Sun Apr 14 13:17:49 2024	[Info]			 Memory Type:		FBD2
+Sun Apr 14 13:17:49 2024	[Info]			 Size of Ram:		Not specified
+Sun Apr 14 13:17:49 2024	[Info]			 Manufacturer:		Unknown
+Sun Apr 14 13:17:49 2024	[Info]			 Serial Number:		00000000
+Sun Apr 14 13:18:06 2024	[Info]	Setting Seismic Anti Cheat up...
+Sun Apr 14 13:18:06 2024	[Info]	User has been created on line 163 in C:\Users\Rose\Desktop\Projects\Seismic AntiCheat Solutions\Seismic AntiCheat Solutions\Detections\Info\Info.cpp
+Sun Apr 14 13:18:06 2024	[Info]	Type 00 - [Bios Device Type]
+Sun Apr 14 13:18:06 2024	[Info]			 BIOS Vendor:		American Megatrends International, LLC.
+Sun Apr 14 13:18:06 2024	[Info]			 BIOS Version:		P2.50
+Sun Apr 14 13:18:06 2024	[Info]			 Release Date:		10/19/2022
+Sun Apr 14 13:18:06 2024	[Info]	Type 02 - [Baseboard Device Type]
+Sun Apr 14 13:18:06 2024	[Info]			 Manufacturer:		ASRock
+Sun Apr 14 13:18:06 2024	[Info]			 Product Number:	B550M Steel Legend
+Sun Apr 14 13:18:06 2024	[Info]			 Version:		                      
+Sun Apr 14 13:18:06 2024	[Info]			 Serial Number:		M80-G3024201039
+Sun Apr 14 13:18:06 2024	[Info]			 UUID:			03060905-0A00-4100-5352-6F636B004235
+Sun Apr 14 13:18:06 2024	[Info]	Type 17 - [Memory Device Type]
+Sun Apr 14 13:18:06 2024	[Info]			 Memory Type:		FBD2
+Sun Apr 14 13:18:06 2024	[Info]			 Size of Ram:		Not specified
+Sun Apr 14 13:18:06 2024	[Info]			 Manufacturer:		Unknown
+Sun Apr 14 13:18:06 2024	[Info]			 Serial Number:		00000000
+Sun Apr 14 13:18:06 2024	[Info]	Type 17 - [Memory Device Type]
+Sun Apr 14 13:18:06 2024	[Info]			 Memory Type:		FBD2
+Sun Apr 14 13:18:06 2024	[Info]			 Size of Ram:		Not specified
+Sun Apr 14 13:18:06 2024	[Info]			 Manufacturer:		Unknown
+Sun Apr 14 13:18:06 2024	[Info]			 Serial Number:		00000000

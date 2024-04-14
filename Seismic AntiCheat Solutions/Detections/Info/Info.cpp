@@ -1,6 +1,7 @@
 #include "Info.h"
 #include "../../Utils/Logger/Logging.h"
 #include <map>
+#include "../User/User.h"
 
 void DmiSystemUuidConversion(const BYTE* PByte, short Version)
 {
@@ -34,6 +35,8 @@ void DmiSystemUuidConversion(const BYTE* PByte, short Version)
 		Logger::Info("\t\t UUID:\t\t\t%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
 			PByte[3], PByte[2], PByte[1], PByte[0], PByte[5], PByte[4], PByte[7], PByte[6],
 			PByte[8], PByte[9], PByte[10], PByte[11], PByte[12], PByte[13], PByte[14], PByte[15]);
+
+
 	}
 	else {
 
@@ -43,14 +46,14 @@ void DmiSystemUuidConversion(const BYTE* PByte, short Version)
 	}
 }
 
-auto DmiStringConversion(
-	const DmiHeader* PDmiHeader, BYTE Source
-) -> const char*
+const char* DmiStringConversion(
+	DmiHeader* PDmiHeader, BYTE Source
+)
 {
 	std::size_t Length{};
 	std::size_t Index{};
 
-	char* BytePointer = (char*)PDmiHeader;
+	auto BytePointer = reinterpret_cast<char*>(PDmiHeader);
 
 	if (Source == 0) { return "Not specified"; }
 	BytePointer += PDmiHeader->Length;
@@ -158,6 +161,9 @@ void Info::GetUserInfo()
 		return;
 	}
 
+	User User;
+	LOG_INFO("User has been created", 0);
+
 	BYTE* B_ = SMBIOSData->SMBIOSTableData;
 	for (DWORD Index{}; Index < SMBIOSData->Length; Index++)
 	{
@@ -171,7 +177,9 @@ void Info::GetUserInfo()
 		if (Header->Type == DMI_ENTRY_BIOS && Flag)
 		{
 			Logger::Info("Type %02d - [Bios Device Type]", Header->Type);
-			Logger::Info("\t\t BIOS Vendor:\t\t%s",		DmiStringConversion(Header, B_[0x4]));
+			const char* BiosVendor = DmiStringConversion(Header, B_[0x4]);
+			Logger::Info("\t\t BIOS Vendor:\t\t%s",		BiosVendor);
+			User.SetBaseboardVendor(BiosVendor);
 			Logger::Info("\t\t BIOS Version:\t\t%s",		DmiStringConversion(Header, B_[0x5]));
 			Logger::Info("\t\t Release Date:\t\t%s",		DmiStringConversion(Header, B_[0x8]));
 
@@ -183,9 +191,9 @@ void Info::GetUserInfo()
 			Logger::Info("\t\t Manufacturer:\t\t%s",		DmiStringConversion(Header, B_[0x4]));
 			Logger::Info("\t\t Product Number:\t%s",		DmiStringConversion(Header, B_[0x5]));
 			Logger::Info("\t\t Version:\t\t%s",			DmiStringConversion(Header, B_[0x6]));
-			Logger::Info("\t\t Serial Number:\t\t%s",	DmiStringConversion(Header, B_[0x7]));
+			const char* SerialNumber = DmiStringConversion(Header, B_[0x7]);
+			Logger::Info("\t\t Serial Number:\t\t%s", SerialNumber);
 
-			// UUID gets printed in the function already
 			DmiSystemUuidConversion(B_ + 0x8,SMBIOSData->SMBIOSMajorVersion * 0x100 + SMBIOSData->SMBIOSMinorVersion);
 
 		}
@@ -194,7 +202,7 @@ void Info::GetUserInfo()
 			if ((DmiMemoryDeviceType(B_[0x12])) != "Other")
 			{
 				Logger::Info("Type %02d - [Memory Device Type]", Header->Type);
-				Logger::Info("\t\t Memory Type:\t\t%s",  DmiMemoryDeviceType(B_[0x12]));
+				Logger::Info("\t\t Memory Type:\t\t%s", DmiMemoryDeviceType(B_[0x12]));
 				Logger::Info("\t\t Size of Ram:\t\t%s",  DmiStringConversion(Header, B_[0xC]));
 				Logger::Info("\t\t Manufacturer:\t\t%s", DmiStringConversion(Header, B_[0x17]));
 				Logger::Info("\t\t Serial Number:\t\t%s",DmiStringConversion(Header, B_[0x18]));
@@ -214,6 +222,4 @@ void Info::GetUserInfo()
 	}
 
 	Buffer.clear();
-
-	return;
 }
