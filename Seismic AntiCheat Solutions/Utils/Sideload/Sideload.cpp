@@ -1,6 +1,5 @@
 #include "Sideload.h"
 
-#include <windows.h>
 
 bool SideLoad::Setup()
 {
@@ -34,15 +33,45 @@ bool SideLoad::Setup()
 			{
 				Logger::Info("Found sideloaded exe: %s", Entry.path().string().c_str());
 
-				STARTUPINFO Startupinfo = { sizeof(Startupinfo) };
+				STARTUPINFO StartUpInfo = { sizeof(StartUpInfo) };
 				PROCESS_INFORMATION  ProcessInformation;
-				if (CreateProcessA(Entry.path().string().c_str(), nullptr, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &Startupinfo, &ProcessInformation))
+				// Create process and set it to suspended
+				if (!CreateProcessA(Entry.path().string().c_str(), nullptr, nullptr, nullptr, FALSE, CREATE_SUSPENDED, nullptr, nullptr, &StartUpInfo, &ProcessInformation))
 				{
-					Logger::Info("Created process.", nullptr);
+					Logger::Error("Failed to create process.", nullptr);
+					return false;
+				}
+
+				Logger::Info("Created process: %s", Entry.path().string().c_str());
+
+				HANDLE HModuleSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, ProcessInformation.dwProcessId);
+
+				if (!HModuleSnap || HModuleSnap == INVALID_HANDLE_VALUE)
+				{
+					Logger::Error("Failed to create snapshot.", nullptr);
+					return false;
+				}
+
+				MODULEENTRY32 ModuleEntry = MODULEENTRY32{ sizeof(MODULEENTRY32) };
+
+				if (Module32First(HModuleSnap, &ModuleEntry))
+				{
+					do
+					{
+						if (ModuleEntry.hModule == GetModuleHandle(nullptr))
+							continue;
+
+						PIMAGE_DOS_HEADER PimageDosHeader = (PIMAGE_DOS_HEADER)ModuleEntry.modBaseAddr;
+						PIMAGE_NT_HEADERS PimageNtHeader = (PIMAGE_NT_HEADERS)((DWORD_PTR)PimageDosHeader + PimageDosHeader->e_lfanew);
+						PIMAGE_SECTION_HEADER PimageSectionHeader = IMAGE_FIRST_SECTION(PimageNtHeader + 1);
+
+					}
+					while (Module32Next(HModuleSnap, &ModuleEntry));
 				}
 				else
 				{
-					Logger::Error("Failed to create process.", nullptr);
+					Logger::Error("Failed to get first module.", nullptr);
+					return false;
 				}
 			}
 		}
