@@ -30,6 +30,9 @@
     <ClCompile Include="Detections\Info\Info.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Sideload\Sideload.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\SingleTon.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Detections\Info\Info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Sideload\Sideload.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
