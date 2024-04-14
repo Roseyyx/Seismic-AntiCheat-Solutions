@@ -108,7 +108,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -123,7 +123,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Detections\Flagging\Flags.cpp" />
+    <ClCompile Include="Detections\Info\Info.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Detections\User\User.cpp" />
     <ClCompile Include="Utils\Xor.h" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Detections\Flagging\Flags.h" />
     <ClInclude Include="Detections\User\User.h" />
+    <ClInclude Include="Detections\Info\Info.h" />
     <ClInclude Include="Utils\Logger\Logging.h" />
     <ClInclude Include="Utils\SingleTon.h" />
   </ItemGroup>

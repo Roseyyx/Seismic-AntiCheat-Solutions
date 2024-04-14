@@ -145,7 +145,7 @@ private:
 
 			std::scoped_lock Lock(LogMutex_);
 
-			printf("%s\t", Buffer);
+			//printf("%s\t", Buffer);
 			printf(MessagePriorityString);
 			printf(Message, Arguments...);
 			printf("\n");
@@ -172,7 +172,7 @@ private:
 
 			std::scoped_lock Lock(LogMutex_);
 
-			printf("%s\t", Buffer);
+			//printf("%s\t", Buffer);
 			printf(MessagePriorityString);
 			printf(Message, Arguments...);
 			printf(xorstr_(" on line %d in %s"), LineNumber, SourceFile);
