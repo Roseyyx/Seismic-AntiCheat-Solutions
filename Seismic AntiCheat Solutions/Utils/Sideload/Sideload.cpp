@@ -35,14 +35,22 @@ bool SideLoad::Setup()
 
 				STARTUPINFO StartUpInfo = { sizeof(StartUpInfo) };
 				PROCESS_INFORMATION  ProcessInformation;
-				// Create process and set it to suspended
-				if (!CreateProcessA(Entry.path().string().c_str(), nullptr, nullptr, nullptr, FALSE, CREATE_SUSPENDED, nullptr, nullptr, &StartUpInfo, &ProcessInformation))
+
+				if (!CreateProcessA(Entry.path().string().c_str(), nullptr, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &StartUpInfo, &ProcessInformation))
 				{
 					Logger::Error("Failed to create process.", nullptr);
 					return false;
 				}
 
-				Logger::Info("Created process: %s", Entry.path().string().c_str());
+				Logger::Info("Process ID: %d", ProcessInformation.dwProcessId);
+
+				// wait for the process to load modules
+
+				if (WaitForInputIdle(ProcessInformation.hProcess, 10000) == WAIT_FAILED)
+				{
+					Logger::Error("Failed to wait for input idle.", nullptr);
+					return false;
+				}
 
 				HANDLE HModuleSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, ProcessInformation.dwProcessId);
 
@@ -52,7 +60,8 @@ bool SideLoad::Setup()
 					return false;
 				}
 
-				MODULEENTRY32 ModuleEntry = MODULEENTRY32{ sizeof(MODULEENTRY32) };
+				MODULEENTRY32 ModuleEntry;
+				ModuleEntry.dwSize = sizeof(MODULEENTRY32);
 
 				if (Module32First(HModuleSnap, &ModuleEntry))
 				{
@@ -61,15 +70,13 @@ bool SideLoad::Setup()
 						if (ModuleEntry.hModule == GetModuleHandle(nullptr))
 							continue;
 
-						PIMAGE_DOS_HEADER PimageDosHeader = (PIMAGE_DOS_HEADER)ModuleEntry.modBaseAddr;
-						PIMAGE_NT_HEADERS PimageNtHeader = (PIMAGE_NT_HEADERS)((DWORD_PTR)PimageDosHeader + PimageDosHeader->e_lfanew);
-						PIMAGE_SECTION_HEADER PimageSectionHeader = IMAGE_FIRST_SECTION(PimageNtHeader + 1);
+						Logger::Info("Module: %s", ModuleEntry.szModule);
 
-					}
-					while (Module32Next(HModuleSnap, &ModuleEntry));
+					} while (Module32Next(HModuleSnap, &ModuleEntry));
 				}
 				else
 				{
+					CloseHandle(HModuleSnap);
 					Logger::Error("Failed to get first module.", nullptr);
 					return false;
 				}

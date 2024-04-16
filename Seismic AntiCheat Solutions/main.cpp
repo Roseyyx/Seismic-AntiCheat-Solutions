@@ -8,7 +8,7 @@ int main() {
 
 	SideLoad::Setup();
 
-	Info::GetUserInfo();
+	//Info::GetUserInfo();
 
 	return 0;
 }

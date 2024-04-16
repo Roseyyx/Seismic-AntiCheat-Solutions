@@ -6,7 +6,6 @@
 
 namespace SideLoad
 {
-	bool IsKnownDll(const char* ExePath, DWORD Signature, )
 	bool Setup();
 	void Unload();
 
