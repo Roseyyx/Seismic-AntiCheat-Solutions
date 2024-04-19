@@ -1,6 +1,7 @@
 # Seismic Anti Cheat Solutions
 
 !! NOTE !!
+W.I.P NOT FINISHED
 X64 functionality only (for now)!
 
 About Seismic Anti Cheat
