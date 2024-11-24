@@ -32,5 +32,8 @@
 *.app
 
 .vs
-.Build
-.Exported Libraries
+/Seismic-.60f21032/x64/Debug
+/Client/Build/Debug
+/Client/Engine/x64/Debug
+/Client/Engine/log.txt
+/Client/Logging/x64/Debug
